@@ -17,8 +17,9 @@
                         myFunction();
                     </script>
                 <?php
-
-                header("Location:bienvenue.php");
+                $_SESSION['donne1'] = $email;
+                $url = 'MAILS/Messages/Forgetpasswordmail.php';
+                header("Location:".$url);
 
             }else{
                 $erreur="aucun utilisateur trouvé";
@@ -35,7 +36,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link rel="stylesheet" href="css/mdpforget.css">
+    <link rel="stylesheet" href="Ressources/css/mdpforget.css">
     <!------ Include the above in your HEAD tag ---------->
 </head>
 <body>
@@ -43,6 +44,8 @@
     	<div class="row">
             <div class="col-md-6">
         		<h2>Tapez votre adresse mail</h2>
+                <button class="btn" onclick="history.back()">⬅️</button>
+
                 <form action="" method="post">
                 <div id="custom-search-input">
                     <div class="input-group col-md-12">

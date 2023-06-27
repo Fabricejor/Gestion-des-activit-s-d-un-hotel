@@ -31,7 +31,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Identifier vous</title>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">'
-<link rel="stylesheet" href="css/connexion.css"  >
+<link rel="stylesheet" href="Ressources/css/connexion.css"  >
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
@@ -43,7 +43,7 @@
         <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="panel panel-info" >
                     <div class="panel-heading">
-                        <div class="panel-title">Se connecter</div>
+                        <div class="panel-title">Hôtel Portails</div>
                         <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="mdpforget.php">Mot de passe oublié?</a></div>
                     </div>
 
@@ -91,10 +91,7 @@
                                 <div class="form-group">
                                     <div class="col-md-12 control">
                                         <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
-                                            Vous n'avez pas encore de compte?
-                                        <a href="#">
-                                            Créer un compte
-                                        </a>
+                                            Vous etes sur le site interne de l'hôtel
                                         </div>
                                     </div>
                                 </div>
