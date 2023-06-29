@@ -12,14 +12,30 @@
             $num_ligne=mysqli_num_rows($req);
             //verification
             if ($num_ligne >0 && $num_ligne <2) {
-                header("Location:bienvenue.php"); //si les inputs fournis sont trouvé dans la base de donnés alors
-                //on le redirige vers la page bienvenue.php
-                //ensuite on va creer une variable de type session pour que personne n'accede a la page bienvenue sans passer par la page de connexion
-                $_SESSION['$_POST[\'login\']']=$login;
-            }else{
+                $row=$req->fetch_assoc();
+                $_SESSION['email']=$row['email'];
+                $_SESSION['role']=$row['role'];
+                header("Location:index.php");
+
+
+            }else if ($num_ligne==0) {
+                $req1 = $mysqli->query("SELECT * FROM `personel`WHERE login='$login' AND mdp='$mdp' ");
+                $num_ligne1=mysqli_num_rows($req1);
+                if ( $num_ligne1 >0 && $num_ligne1 <2) {
+                    $row1=$req1->fetch_assoc();
+                    $_SESSION['email']=$row1['email'];
+                    $_SESSION['role']=$row1['role'];
+                    header("Location:index.php");
+                }else {
+                    $erreur="login ou Mots de passe incorect!";
+                }
+
+            }else {
                 $erreur="login ou Mots de passe incorect!";
             }
 
+        }else {
+            $erreur="login ou Mots de passe incorect!";
         }
     }
 ?>
