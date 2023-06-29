@@ -4,8 +4,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.min.js">
 
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
 <title>reservations</title>
 
 <body style="background: #eeeeee">
@@ -43,6 +41,24 @@
                                aria-describedby="nbenfantsHelp">Nombre d'enfants</label>
                         <input id="nb_enfants" type="number" class="form-control">
                     </div>
+                    <div class="mb-3">
+                        <select class="form-select"
+                                aria-label="typeChambre">
+                            <option value="CLASSIQUE">type de chambre</option>
+                            <option value="CLASSIQUE">Classique</option>
+                            <option value="AFFAIRE">Affaire</option>
+                            <option value="LUXE">Luxe</option>
+                            <option value="COUPLE">Couple</option>
+                            <option value="ECONOMIQUE">Economique</option>
+                            <option value="FAMILLE">Famille</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nb_chambres" class="form-label"
+                               aria-describedby="nbchambresHelp">Nombre de chambres</label>
+                        <input id="nb_chambres" type="number" class="form-control">
+                    </div>
+
 
                     <div class="modal-footer">
                         <button class="btn btn-danger" type="button"
@@ -50,7 +66,6 @@
                             <button class="btn btn-info" type="submit"
                             id="reserver">
                                 Reserver</button>
-
                     </div>
                 </form>
             </div>

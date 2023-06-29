@@ -1,0 +1,52 @@
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.customdivforicons{
+    display: flex;
+    flex-direction: row;
+}
+
+.badge-notify{
+    background: red;
+    position: relative;
+    top: -20px;
+    left: -25px;
+}
+
+.customsize{
+    margin-top: -10px;
+    margin-right: -8px;
+}
+
+.customsizelogo{
+    margin-top: -30px;
+}
+
+.navbar{
+    background: aliceblue;
+    height: 60px;
+}
+
+.content{
+    margin-left: 250px;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    transition: .5s;
+    padding-top: 40px;
+    color: white;
+    font-weight: bold;
+}
+
+
+.content span{
+    padding-left: 40px;
+}
+
+@media (max-width:417px){
+
+    .content .card{
+        margin-top: -15px;
+    }
+}

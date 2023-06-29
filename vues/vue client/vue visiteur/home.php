@@ -21,7 +21,7 @@
                             data-bs-dismiss="modal" aria-label="close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="home.php">
+                    <form action="#">
                         <div class="mb-3">
                             <label for="firstname" class="form-label"
                                    aria-describedby="firstnameHelp">Prenom</label>
@@ -33,13 +33,41 @@
                             <input id="lastname" type="text" class="form-control">
                         </div>
                         <div class="mb-3">
+                            <label for="lastname" class="form-label"
+                                   aria-describedby="lastnameHelp">Sexe</label>
+                            <input id="lastname" type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label"
+                                   aria-describedby="emailHelp">Couriel</label>
+                            <input id="email" type="email" class="form-control">
+                            <div class="form-text" id="infoHelp">
+                                Nous n'allons partager votre email à personne.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="login" class="form-label"
+                                   aria-describedby="logHelp">Login</label>
+                            <input id="login" type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label"
+                                   aria-describedby="passwordHelp">Mot de passe</label>
+                            <input id="password" type="password" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmpassword" class="form-label"
+                                   aria-describedby="passwordHelp">Confirmez le mot de passe</label>
+                            <input id="confirmpassword" type="password" class="form-control">
+                        </div>
+                        <div class="mb-3">
                             <label for="tel" class="form-label"
                                    aria-describedby="telHelp">Telephone</label>
                             <input id="tel" type="number" class="form-control">
                         </div>
                         <div class="mb-3">
                             <select class="form-select"
-                                   aria-label="Nationnalité">
+                                    aria-label="Nationnalité">
                                 <option>Selectionnez-votre nationalité!</option>
                                 <option value="AFGHAN">AFGHAN</option>
                                 <option value="ALBANIAN">ALBANIAN</option>
@@ -238,25 +266,6 @@
                                 <option value="ZIMBABWEAN">ZIMBABWEAN</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label"
-                                   aria-describedby="emailHelp">Email</label>
-                            <input id="email" type="email" class="form-control">
-                            <div class="form-text" id="infoHelp">
-                                Nous n'allons partager votre email à personne.
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="password" class="form-label"
-                                   aria-describedby="passwordHelp">Mot de passe</label>
-                            <input id="password" type="password" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label for="confirmpassword" class="form-label"
-                                   aria-describedby="passwordHelp">Confirmez le mot de passe</label>
-                            <input id="confirmpassword" type="password" class="form-control">
-                        </div>
 
                         <div class="mb-3">
                             <a href="#" class="form-link"
@@ -293,14 +302,11 @@
                     data-bs-dismiss="modal" aria-label="close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="home.php">
+                    <form action="#">
                         <div class="mb-3">
-                            <label for="email" class="form-label"
-                            aria-describedby="emailHelp">Email</label>
-                            <input id="email" type="email" class="form-control">
-                            <div class="form-text" id="infoHelp">
-                                Nous n'allons partager votre email à personne.
-                            </div>
+                            <label for="login" class="form-label"
+                            aria-describedby="emailHelp">Login</label>
+                            <input id="login" type="text" class="form-control">
                         </div>
 
                         <div class="mb-3">

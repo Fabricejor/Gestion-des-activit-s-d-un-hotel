@@ -5,9 +5,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.min.js">
 
 <link href="home.css" rel="stylesheet">
-<title>tarifs chambres</title>
+<title>contactez-nous</title>
 
-<body style="background: #eeeeee">
+<body style="background: #eeeeee; height: 100vh;">
 
 <!-- Modal inscription Starts-->
 
@@ -21,7 +21,7 @@
                         data-bs-dismiss="modal" aria-label="close"></button>
             </div>
             <div class="modal-body">
-                <form action="home.php">
+                <form action="#">
                     <div class="mb-3">
                         <label for="firstname" class="form-label"
                                aria-describedby="firstnameHelp">Prenom</label>
@@ -31,6 +31,34 @@
                         <label for="lastname" class="form-label"
                                aria-describedby="lastnameHelp">Nom</label>
                         <input id="lastname" type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastname" class="form-label"
+                               aria-describedby="lastnameHelp">Sexe</label>
+                        <input id="lastname" type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label"
+                               aria-describedby="emailHelp">Couriel</label>
+                        <input id="email" type="email" class="form-control">
+                        <div class="form-text" id="infoHelp">
+                            Nous n'allons partager votre email à personne.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="login" class="form-label"
+                               aria-describedby="logHelp">Login</label>
+                        <input id="login" type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label"
+                               aria-describedby="passwordHelp">Mot de passe</label>
+                        <input id="password" type="password" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmpassword" class="form-label"
+                               aria-describedby="passwordHelp">Confirmez le mot de passe</label>
+                        <input id="confirmpassword" type="password" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="tel" class="form-label"
@@ -238,25 +266,6 @@
                             <option value="ZIMBABWEAN">ZIMBABWEAN</option>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label"
-                               aria-describedby="emailHelp">Email</label>
-                        <input id="email" type="email" class="form-control">
-                        <div class="form-text" id="infoHelp">
-                            Nous n'allons partager votre email à personne.
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="password" class="form-label"
-                               aria-describedby="passwordHelp">Mot de passe</label>
-                        <input id="password" type="password" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirmpassword" class="form-label"
-                               aria-describedby="passwordHelp">Confirmez le mot de passe</label>
-                        <input id="confirmpassword" type="password" class="form-control">
-                    </div>
 
                     <div class="mb-3">
                         <a href="#" class="form-link"
@@ -293,14 +302,11 @@
                         data-bs-dismiss="modal" aria-label="close"></button>
             </div>
             <div class="modal-body">
-                <form action="home.php">
+                <form action="#">
                     <div class="mb-3">
-                        <label for="email" class="form-label"
-                               aria-describedby="emailHelp">Email</label>
-                        <input id="email" type="email" class="form-control">
-                        <div class="form-text" id="infoHelp">
-                            Nous n'allons partager votre email à personne.
-                        </div>
+                        <label for="login" class="form-label"
+                               aria-describedby="emailHelp">Login</label>
+                        <input id="login" type="text" class="form-control">
                     </div>
 
                     <div class="mb-3">
@@ -354,13 +360,13 @@
                     <a href="reservation.php" class="nav-link active">Reservation</a>
                 </li>-->
                 <li class="nav-item">
-                    <a href="tarifs_chambres.php" class="nav-link active fw-bolder">Tarifs chambres</a>
+                    <a href="tarifs_chambres.php" class="nav-link fw-bolder">Tarifs chambres</a>
                 </li>
                 <li class="nav-item">
                     <a href="services.php" class="nav-link fw-bolder">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a href="contactez_nous.php" class="nav-link fw-bolder">Contactez-nous</a>
+                    <a href="contactez_nous.php.php" class="nav-link active fw-bolder">Contactez-nous</a>
                 </li>
 
             </ul>
@@ -381,189 +387,97 @@
 
 <!-- navbar End -->
 
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" >
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+<section class="container mt-5">
+    <div class="pricing-header px-3 py-3 pt-md-5
+    pb-md-4 mx-auto text-center">
+        <h1 class="display-4 text-info fiw-bold">Contactez-nous</h1>
+        <p class="lead">
+            L'hôtel Corniche est à votre disposition.
+        </p>
     </div>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="https://github.com/Fabricejor/Gestion-des-activit-s-d-un-hotel/blob/main/images/Chambre%20de%20luxe.jpg?raw=true" class="d-block" style="width: 100%; height: 75%" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Tarifs chambres et offres</h5>
-                <p>Some representative placeholder content for the first slide.</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Tarifs chambres et offres</h5>
-                <p>Some representative placeholder content for the first slide.</p>
-            </div>
-            <img src="https://github.com/Fabricejor/Gestion-des-activit-s-d-un-hotel/blob/main/images/chambre%20famille.jpg?raw=true" class="d-block " style="width: 100%; height: 75%" alt="...">
 
+    <div class="row text-center bg-secondary text-white fw-bold">
+        <div class="col-md-4">
+            <a class="btn-floating text-info fs-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                </svg>
+            </a>
+            <p>Dakar</p>
+            <p>Sénégal</p>
         </div>
-        <div class="carousel-item">
-            <img src="https://github.com/Fabricejor/Gestion-des-activit-s-d-un-hotel/blob/main/images/chambre%20classique.jpg?raw=true" class="d-block" style="width: 100%; height: 75%" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Tarifs chambres et offres</h5>
-                <p>Some representative placeholder content for the first slide.</p>
-            </div>
+        <div class="col-md-4">
+            <a class="btn-floating text-info fs-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                </svg>
+            </a>
+            <p>+221 33 000 00 00</p>
+            <p>Lun - Dim, 24h/24h</p>
+        </div>
+        <div class="col-md-4">
+            <a class="btn-floating text-info fs-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                </svg>
+            </a>
+            <p>rsn@example.com</p>
+            <p>sen@example.com</p>
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
 
-<section class="container mt-5" style="min-height: 390px;">
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-        <div class="col">
-            <div class="card mb-4 border-0 shadow-lg">
-                <img src="https://github.com/Fabricejor/Gestion-des-activit-s-d-un-hotel/blob/main/images/chambre%20classique.jpg?raw=true" class="card-img-top" alt="">
-                <div class="card-header bg-warning">
-                    <h4 class="my-0 fw-normal">Tarifs chambres classiques</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">
-                        250000 <small class="text-muted">fcfa</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>lit queen-size</li>
-                            <li>une à deux personnes</li>
-                            <li>salle de bains privée</li>
-                            <li>télévision, Wi-Fi, bureau et plus encore</li>
-                        </ul>
-                    <button type="button" class="w100 btn btn-lg
-                    btn-info text-white fw-bold" data-bs-toggle="modal" data-bs-target="#myModal">
-                        Reserver cette chambre Maintenant!
-                    </button>
-                </div>
+    <hr class="featurette-divider">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <form action="">
+                    <div class="mb-3">
+                        <label for="Email" class="form-label">
+                            Adresse Email</label>
+                        <input type="email" class="form-control
+                        border-info rounded-pill" aria-describedby="emailHelp">
+                        <div class="form-text">
+                            Nous n'allons partager votre email à personne.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Sujet" class="form-label">
+                            Subject</label>
+                        <input type="text" class="form-control
+                        border-info rounded-pill" aria-describedby="subjectHelp">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Message" class="form-label">
+                            Message</label>
+                        <textarea type="text" class="form-control
+                        border-info rounded-pill" aria-describedby="subjectHelp"
+                        rows="10">
+                        </textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="checkbox" class="form-check-input
+                        border-info rounded-pill"
+                        id="checkbox" aria-describedby="subjectHelp">
+                        <label for="checkbox" class="form-check-label">
+                            Voulez-vous recevoir par mail des informations sur nos nouveaux services?</label>
+                    </div>
+
+                    <div class="d-grid gap-2 mb-5">
+                         <button class="btn btn-info border-info
+                         rounded-pill" type="button">Envoyer</button>
+                    </div>
+                </form>
             </div>
-
-        </div>
-        <div class="col">
-            <div class="card mb-4 border-0 shadow-lg">
-                <img src="https://github.com/Fabricejor/Gestion-des-activit-s-d-un-hotel/blob/main/images/chambre%20affaires.jpg?raw=true" class="card-img-top" alt="">
-                <div class="card-header bg-warning">
-                    <h4 class="my-0 fw-normal">Tarifs chambres d'affaires</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">
-                        300000 <small class="text-muted">fcfa</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>grand bureau avec une chaise ergonomique</li>
-                            <li>connexion Wi-Fi haut débit gratuite</li>
-                            <li> prises électriques facilement accessibles</li>
-                            <li>lit grande qualité et plus encore</li>
-                        </ul>
-                    <button type="button" class="w100 btn btn-lg
-                    btn-info text-white fw-bold" data-bs-toggle="modal" data-bs-target="#myModal">
-                        Reserver cette chambre Maintenant!
-                    </button>
-                </div>
+            <div class="col-sm">
+                <iframe class="responsive-iframe ms-0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3859.4414453356244!2d-17.475223425011873!3d14.68761018580918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec17347a7ddca45%3A0xe0ca3b156cde76d!2sCorniche%20Ouest!5e0!3m2!1sfr!2ssn!4v1687805706803!5m2!1sfr!2ssn" style="border: 0; width: 100%; height: 600px"></iframe>
             </div>
-
-        </div>
-        <div class="col">
-            <div class="card mb-4 border-0 shadow-lg">
-                <img src="https://github.com/Fabricejor/Gestion-des-activit-s-d-un-hotel/blob/main/images/Chambre%20de%20luxe.jpg?raw=true" class="card-img-top" alt="">
-                <div class="card-header bg-warning">
-                    <h4 class="my-0 fw-normal">Tarifs chambres de luxe</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">
-                        500000 <small class="text-muted">fcfa</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>Spacieuse + Espace de travail élégant</li>
-                            <li>Lit king-size ou queen-size</li>
-                            <li>Vue panoramique + Coin salon confortable</li>
-                            <li>Salle de bains en marbre et plus encore</li>
-                        </ul>
-                    <button type="button" class="w100 btn btn-lg
-                    btn-info text-white fw-bold" data-bs-toggle="modal" data-bs-target="#myModal">
-                        Reserver cette chambre Maintenant!
-                    </button>
-                </div>
-            </div>
-
-        </div>
-        <div class="col">
-            <div class="card mb-4 border-0 shadow-lg">
-                <img src="https://github.com/Fabricejor/Gestion-des-activit-s-d-un-hotel/blob/main/images/Chambre%20couple.jpg?raw=true" class="card-img-top" alt="">
-                <div class="card-header bg-warning">
-                    <h4 class="my-0 fw-normal">Tarifs chambres couples</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">
-                        350000 <small class="text-muted">fcfa</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>Lit king-size ou queen-size</li>
-                            <li>Décoration romantique</li>
-                            <li>Jacuzzi ou bain à remous</li>
-                            <li>Balcon ou terrasse privée</li>
-                        </ul>
-                    <button type="button" class="w100 btn btn-lg
-                    btn-info text-white fw-bold" data-bs-toggle="modal" data-bs-target="#myModal">
-                        Reserver cette chambre Maintenant!
-                    </button>
-                </div>
-            </div>
-
-        </div>
-        <div class="col">
-            <div class="card mb-4 border-0 shadow-lg">
-                <img src="https://github.com/Fabricejor/Gestion-des-activit-s-d-un-hotel/blob/main/images/Chambre%20Economique.jpg?raw=true" class="card-img-top" alt="">
-                <div class="card-header bg-warning">
-                    <h4 class="my-0 fw-normal">Tarifs chambres economiques</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">
-                        200000 <small class="text-muted">fcfa</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>Lit confortable + Décoration simple</li>
-                            <li>Salle de bains privée</li>
-                            <li>Bureau de travail</li>
-                            <li>télévision, Wi-Fi, bureau et plus encore</li>
-                        </ul>
-                    <button type="button" class="w100 btn btn-lg
-                    btn-info text-white fw-bold" data-bs-toggle="modal" data-bs-target="#myModal">
-                        Reserver cette chambre Maintenant!
-                    </button>
-                </div>
-            </div>
-
-        </div>
-        <div class="col">
-            <div class="card mb-4 border-0 shadow-lg">
-                <img src="https://github.com/Fabricejor/Gestion-des-activit-s-d-un-hotel/blob/main/images/chambre%20famille.jpg?raw=true" class="card-img-top" alt="">
-                <div class="card-header bg-warning">
-                    <h4 class="my-0 fw-normal">Tarifs chambre de famille</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">
-                        275000 <small class="text-muted">fcfa</small></h1>
-                        <ul class="list-unstyled mt-3 mb-4">
-                            <li>hambre spacieuse + Lits multiples </li>
-                            <li>Décoration conviviale </li>
-                            <li>salle de bains privée</li>
-                            <li>Espace de rangement + Coin salon ou espace de jeu et plus encore</li>
-                        </ul>
-                    <button type="button" class="w100 btn btn-lg
-                    btn-info text-white fw-bold" data-bs-toggle="modal" data-bs-target="#myModal">
-                        Reserver cette chambre Maintenant!
-                    </button>
-                </div>
-            </div>
-
         </div>
     </div>
 </section>
-
 
 <!-- footer start -->
 <footer class="bg-light text-center text-lg-start top-100 bottom-0 w-100">
