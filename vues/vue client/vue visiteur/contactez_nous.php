@@ -1,10 +1,66 @@
+<?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+if ($_POST && isset($_POST['send'], $_POST['name'], $_POST['email'], $_POST['subject'], $_POST['message'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
+    if (!$name) {
+        $errorMsg = "Entrer votre nom s'il vous plait";
+    } elseif (!preg_match("/^\S+@\S+$/", $email) || !$email) {
+        $errorMsg = "Entrer une adresse email valide s'il vous plait";
+    } elseif (!$message) {
+        $errorMsg = "Entrer votre message s'il vous plait";
+    } else {
+
+        require 'PHPMailer/src/Exception.php';
+        require 'PHPMailer/src/PHPMailer.php';
+        require 'PHPMailer/src/SMTP.php';
+
+        $mail = new PHPMailer();
+        $mail->IsSMTP();
+        $mail->Host = 'smtp.gmail.com';               //Adresse IP ou DNS du serveur SMTP
+        $mail->Port = 465;                          //Port TCP du serveur SMTP
+        $mail->SMTPAuth = 1;                        //Utiliser l'identification
+        $mail->CharSet = 'UTF-8';
+
+        if($mail->SMTPAuth){
+            $mail->SMTPSecure = 'ssl';               //Protocole de sécurisation des échanges avec le SMTP
+            $mail->Username   =  'hotelmanagementclient2023@gmail.com';    //Adresse email à utiliser
+            $mail->Password   =  'tskwarlxjnfzmjox';         //Mot de passe de l'adresse email à utiliser
+        }
+
+        $mail->From       = trim($_POST["email_from"]);                //L'email à afficher pour l'envoi
+        $mail->FromName   = trim($_POST["name"]);          //L'alias de l'email de l'emetteur
+
+        $mail->AddAddress("paulndour1999@gmail.com");
+
+        $mail->Subject    =  $_POST["subject"];                      //Le sujet du mail
+        $mail->WordWrap   = 50; 			       //Nombre de caracteres pour le retour a la ligne automatique
+        $mail->AltBody = $_POST["message"]; 	       //Texte brut
+        $mail->IsHTML(false);                                  //Préciser qu'il faut utiliser le texte brut
+        $mail->MsgHTML($_POST["message"]);            //Forcer le contenu du body html pour ne pas avoir l'erreur "body is empty' même si on utilise l'email en contenu alternatif
+
+        if (!$mail->send()) {
+            $errorMsg = $mail->ErrorInfo;
+            header("Location: contactez_nous.php?error=0");
+
+        } else{
+            header("Location: contactez_nous.php?success=1");
+        }
+        exit;
+    }
+}
+?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.min.js">
 
-<link href="home.css" rel="stylesheet">
 <title>contactez-nous</title>
 
 <body style="background: #eeeeee; height: 100vh;">
@@ -428,14 +484,40 @@
 
     <hr class="featurette-divider">
 
+
+    <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
+    <div class="mt-5 alert alert-success">
+            <p><?php echo 'Message bien envoyé'; ?></p>
+    </div>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['error']) && $_GET['error'] == 0): ?>
+    <div class="mt-5 alert alert-danger">
+            <p><?php echo 'Erreur serveur veillez nous contacter par telephone'; ?></p>
+    </div>
+    <?php endif; ?>
+
+    <?php if (isset($errorMsg)): ?>
+    <div class="alert alert-danger">
+            <p><?php echo $errorMsg; ?></p>
+    </div>
+    <?php endif; ?>
+
+
     <div class="container">
         <div class="row">
             <div class="col-sm">
-                <form action="">
+                <form method="post" action="contactez_nous.php" >
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">
+                            Nom<sup>*</sup></label>
+                        <input type="text" name="name" class="form-control
+                        border-info rounded-pill" aria-describedby="nameHelp">
+                    </div>
                     <div class="mb-3">
                         <label for="Email" class="form-label">
-                            Adresse Email</label>
-                        <input type="email" class="form-control
+                            Adresse Email <sup>*</sup></label>
+                        <input type="email" name="email" class="form-control
                         border-info rounded-pill" aria-describedby="emailHelp">
                         <div class="form-text">
                             Nous n'allons partager votre email à personne.
@@ -445,30 +527,28 @@
                     <div class="mb-3">
                         <label for="Sujet" class="form-label">
                             Subject</label>
-                        <input type="text" class="form-control
+                        <input type="text" name="subject" class="form-control
                         border-info rounded-pill" aria-describedby="subjectHelp">
                     </div>
-
                     <div class="mb-3">
                         <label for="Message" class="form-label">
-                            Message</label>
-                        <textarea type="text" class="form-control
-                        border-info rounded-pill" aria-describedby="subjectHelp"
-                        rows="10">
-                        </textarea>
+                            Message<sup>*</sup></label>
+                        <textarea name="message" class="form-control
+                        border-info " aria-describedby="subjectHelp"
+                                  rows="10" ></textarea>
                     </div>
 
                     <div class="mb-3">
                         <input type="checkbox" class="form-check-input
                         border-info rounded-pill"
-                        id="checkbox" aria-describedby="subjectHelp">
+                        id="checkbox" aria-describedby="checkboxHelp">
                         <label for="checkbox" class="form-check-label">
                             Voulez-vous recevoir par mail des informations sur nos nouveaux services?</label>
                     </div>
 
                     <div class="d-grid gap-2 mb-5">
                          <button class="btn btn-info border-info
-                         rounded-pill" type="button">Envoyer</button>
+                         rounded-pill" name="send" type="submit">Envoyer</button>
                     </div>
                 </form>
             </div>
