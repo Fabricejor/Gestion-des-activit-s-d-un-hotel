@@ -1,0 +1,17 @@
+body{
+    background-image:url("https://github.com/Fabricejor/Gestion-des-activit-s-d-un-hotel/blob/main/images/background1.jpg?raw=true") ;
+}
+#register-form{
+    background: #eeeeee;
+    width: 50%;
+    margin: 5px auto;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #fb774b;
+}
+
+#register-form input select{
+    width: 50%;
+    margin: 5px auto;
+}
+
