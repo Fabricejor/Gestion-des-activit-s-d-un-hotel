@@ -1,3 +1,181 @@
+<?php
+global $mysqli;
+session_start();
+include '../../BD/LinkDB.php';
+
+//Creer un personnel
+if (isset($_POST['creer'])) {
+    $prenom = $_POST['prenom'];
+    $nom = $_POST['nom'];
+    $login = $_POST['login'];
+    $mdp = $_POST['mdp'];
+    $confirm_mdp = $_POST['confirm_mdp'];
+    $role = $_POST['role'];
+    $email = $_POST['email'];
+
+    // if password don't match
+    if ($mdp !== $confirm_mdp) {
+        $_SESSION['error'] = "Les mot de passes ne sont pas identique";
+        header('Location: listePersonnel.php');
+        exit();
+    } // if password is less than 6 char
+    else if (strlen($mdp) < 6) {
+        $_SESSION['erro'] = "Le mot de passe doit dépasser 6 caractères";
+        header('Location: listePersonnel.php');
+        exit();
+    }
+    // S'il n'y a pas d'erreur
+    else {
+        // Regarder s'il y a un personel qui a le meme email
+        $stmt1 = $mysqli->prepare("SELECT count(*) FROM personel where email=?");
+        $stmt1->bind_param('s', $email);
+        $stmt1->execute();
+        $stmt1->bind_result($num_rows);
+        $stmt1->store_result();
+        $stmt1->fetch();
+
+        // Regarder s'il y a un personel qui a le meme login
+        $stmt2 = $mysqli->prepare("SELECT count(*) FROM personel where login=?");
+        $stmt2->bind_param('s', $login);
+        $stmt2->execute();
+        $stmt2->bind_result($num_row);
+        $stmt2->store_result();
+        $stmt2->fetch();
+
+
+        if ($num_rows != 0) {
+            $_SESSION['err'] = "On a deja utilise cette email";
+            header('Location: listePersonnel.php');
+            exit();
+        }
+
+        else if ($num_row != 0) {
+            $_SESSION['e'] = "On a deja utilise ce login";
+            header('Location: listePersonnel.php');
+            exit();
+        }
+
+        else {
+            // Ajouter un nouveau personnel
+            $stmt = $mysqli->prepare("INSERT INTO personel (prenom, nom, login, mdp, role, email, idmin) 
+                                    VALUES (?,?,?,?,?,?,?)");
+
+            $md5 = md5($mdp);
+            $stmt->bind_param('sssssss', $prenom, $nom, $login, $md5, $role, $email, $_SESSION['idmin']);
+
+            // Si le compte a bien ete creer
+            if ($stmt->execute()){
+                $_SESSION['prenom'] = $prenom;
+                $_SESSION['nom'] = $nom;
+                $_SESSION['login'] = $login;
+                $_SESSION['mdp'] = $mdp;
+                $_SESSION['role'] = $role;
+                $_SESSION['email'] = $email;
+                $_SESSION['creer'] = "personnel ajouté avec success";
+                header('Location: listePersonnel.php');
+                exit();
+                // Si le compte n'a pas été creer
+            }else{
+                $_SESSION['er'] = "Echec de l'ajout";
+                header('Location: listePersonnel.php');
+                exit();
+            }
+        }
+    }
+}
+
+// Modifier un personnel
+if (isset($_POST['modifier'])) {
+    $idperso = $_POST['idperso'];
+    $prenom = $_POST['prenom'];
+    $nom = $_POST['nom'];
+    $login = $_POST['login'];
+    $mdp = $_POST['mdp'];
+    $confirm_mdp = $_POST['confirm_mdp'];
+    $role = $_POST['role'];
+    $email = $_POST['email'];
+
+    // if password don't match
+    if ($mdp !== $confirm_mdp) {
+        $_SESSION['error'] = "Les mot de passes ne sont pas identique";
+        header('Location: listePersonnel.php');
+        exit();
+    } // if password is less than 6 char
+    else if (strlen($mdp) < 6) {
+        $_SESSION['erro'] = "Le mot de passe doit dépasser 6 caractères";
+        header('Location: listePersonnel.php');
+        exit();
+    }
+    // S'il n'y a pas d'erreur
+    else {
+        // Regarder s'il y a un personel qui a le meme email
+        $stmt1 = $mysqli->prepare("SELECT count(*) FROM personel where email=? AND idperso!='$idperso'");
+        $stmt1->bind_param('s', $email);
+        $stmt1->execute();
+        $stmt1->bind_result($num_rows);
+        $stmt1->store_result();
+        $stmt1->fetch();
+
+        // Regarder s'il y a un personel qui a le meme login
+        $stmt2 = $mysqli->prepare("SELECT count(*) FROM personel where login=? AND idperso!='$idperso'");
+        $stmt2->bind_param('s', $login);
+        $stmt2->execute();
+        $stmt2->bind_result($num_row);
+        $stmt2->store_result();
+        $stmt2->fetch();
+
+
+        if ($num_rows != 0) {
+            $_SESSION['err'] = "On a deja utilise cette email";
+            header('Location: listePersonnel.php');
+            exit();
+        }
+
+        else if ($num_row != 0) {
+            $_SESSION['e'] = "On a deja utilise ce login";
+            header('Location: listePersonnel.php');
+            exit();
+        }
+
+        else {
+            // Modifier un personnel
+            $md5 = md5($mdp);
+            $stmt = "UPDATE personel SET prenom='$prenom', nom='$nom', login='$login', mdp='$md5', role='$role', email='$email' where idperso='$idperso'";
+
+            if ($mysqli->query($stmt) === TRUE){
+                $_SESSION['modifier'] = "personnel modifier avec success";
+                header('Location: listePersonnel.php');
+                exit();
+                // Si le compte n'a pas été creer
+            }else{
+                $_SESSION['er_modifier'] = "Echec de la modification";
+                header('Location: listePersonnel.php');
+                exit();
+            }
+        }
+    }
+}
+
+// Supprimer un personnel
+if (isset($_GET['idperso'])){
+    $idperso = $_GET['idperso'];
+
+    $stmt = "DELETE FROM personel WHERE idperso='$idperso'";
+    if ($mysqli->query($stmt)){
+        header('Location : listePersonnel');
+        exit();
+    }
+}
+
+// Afficher un personnel
+$stmt = $mysqli->prepare("SELECT idperso, prenom, nom, login, mdp, role, email FROM personel");
+$stmt->execute();
+$stmt->bind_result($idperso, $prenom, $nom, $login, $mdp, $role, $email);
+
+
+?>
+
+
 <title>dashboard</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
@@ -179,40 +357,45 @@
                             data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-success">
-                    <form action="">
+                    <form action="listePersonnel.php" method="post">
                         <div class="mb-3">
                             <label for="" class="form-label">Prenom</label>
-                            <input type="text" class="form-control">
+                            <input name="prenom" type="text" class="form-control" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="" class="form-label">Nom</label>
-                            <input type="text" class="form-control">
+                            <input name="nom" type="text" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Login</label>
-                            <input type="text" class="form-control">
+                            <input name="login" type="text" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Mot de passe</label>
-                            <input type="password" class="form-control">
+                            <input name="mdp" type="password" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Confirmer Mot de passe</label>
-                            <input type="password" class="form-control">
+                            <input name="confirm_mdp" type="password" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Rôle</label>
-                            <input type="text" class="form-control">
+                            <select name="role" type="text" class="form-control" required>
+                                <option>directeur</option>
+                                <option>menagere</option>
+                                <option>receptioniste</option>
+                                <option>gerant</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Email</label>
-                            <input type="email" class="form-control">
+                            <input name="email" type="email" class="form-control" required>
                         </div>
 
                         <div class="d-grid">
                             <button class="btn btn-success fw-bold text-white"
-                                    type="submit">
+                                    type="submit" name="creer">
                                 <i class="fas fa-plus-circle">Creer</i>
                             </button>
                         </div>
@@ -223,6 +406,73 @@
     </div>
 
     <!-- Add new Modal Ends-->
+
+    <!-- Update Modal Starts-->
+
+    <div class="modal fade" id="updateModal" tabindex="-1"
+         aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white fw-bold">
+                    <h5 class="modal-title">Modifier dans personnel</h5>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-primary">
+                    <form action="listePersonnel.php" method="post">
+                        <div class="mb-3">
+                            <label for="" class="form-label">idperso</label>
+                            <input id="personnel-id-input" name="idperso" type="text" class="form-control" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Prenom</label>
+                            <input id="personnel-prenom-input" name="prenom" type="text" class="form-control" value="">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Nom</label>
+                            <input id="personnel-nom-input" name="nom" type="text" class="form-control" value="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Login</label>
+                            <input id="personnel-login-input" name="login" type="text" class="form-control" value="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Mot de passe</label>
+                            <input name="mdp" type="password" class="form-control" value="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Confirmer Mot de passe</label>
+                            <input name="confirm_mdp" type="password" class="form-control" value="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Rôle</label>
+                            <select id="personnel-role-input" name="role" type="text" class="form-control" required>
+                                <option>directeur</option>
+                                <option>menagere</option>
+                                <option>receptioniste</option>
+                                <option>gerant</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Email</label>
+                            <input id="personnel-email-input" name="email" type="email" class="form-control" value="">
+                        </div>
+
+                        <div class="d-grid">
+                            <button class="btn btn-primary fw-bold text-white"
+                                    type="submit" name="modifier">
+                                <i class="fas fa-edit" >Modifier</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Modal Ends-->
 
 
     <!-- Personnel list table section starts -->
@@ -236,6 +486,72 @@
                 Add New
             </a>
         </div>
+        <?php
+        if (isset($_SESSION['error'])) {?>
+            <div class="mt-5 alert alert-danger">
+                <?php echo '<p>' . $_SESSION['error'] . '</p>';
+                unset($_SESSION['error']); ?>
+            </div>
+        <?php } ?>
+
+
+        <?php
+        if (isset($_SESSION['erro'])) {?>
+            <div class="mt-5 alert alert-danger">
+                <?php echo '<p>' . $_SESSION['erro'] . '</p>';
+                unset($_SESSION['erro']); ?>
+            </div>
+        <?php } ?>
+
+        <?php
+        if (isset($_SESSION['err'])) { ?>
+            <div class="mt-5 alert alert-danger">
+                <?php
+                echo '<p>' . $_SESSION['err'] . '</p>';
+                unset($_SESSION['err']); ?>
+            </div>
+        <?php } ?>
+
+        <?php if (isset($_SESSION['e'])) {?>
+            <div class="mt-5 alert alert-danger">
+                <?php echo '<p>' . $_SESSION['e'] . '</p>';
+                unset($_SESSION['e']);?>
+            </div>
+        <?php } ?>
+
+        <?php
+        if (isset($_SESSION['er'])) {?>
+            <div class="mt-5 alert alert-danger">
+                <?php
+                echo '<p>' . $_SESSION['er'] . '</p>';
+                unset($_SESSION['er']);?>
+            </div>
+        <?php } ?>
+
+        <?php
+        if (isset($_SESSION['creer'])) {?>
+            <div class="mt-5 alert alert-success">
+                <?php echo '<p>' . $_SESSION['creer'] . '</p>';
+                unset($_SESSION['creer']); ?>
+            </div>
+        <?php } ?>
+
+        <?php if (isset($_SESSION['modifier'])) {?>
+            <div class="mt-5 alert alert-success">
+                <?php echo '<p>' . $_SESSION['modifier'] . '</p>';
+                unset($_SESSION['modifier']); ?>
+            </div>
+        <?php } ?>
+
+        <?php
+        if (isset($_SESSION['er_modifier'])) {?>
+            <div class="mt-5 alert alert-danger">
+                <?php
+                echo '<p>' . $_SESSION['er_modifier'] . '</p>';
+                unset($_SESSION['er_modifier']);?>
+            </div>
+        <?php } ?>
+
         <div class="card-body">
             <p class="card-text">
             <div class="table-responsive">
@@ -251,60 +567,35 @@
                         <th scope="col">Email</th>
                     </tr>
                     </thead>
+                    <?php while ($stmt->fetch()) { ?>
                     <tbody>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Marie Emma</td>
-                        <td>Semevo</td>
-                        <td>meslog</td>
-                        <td>passer</td>
-                        <td>Receptionniste</td>
-                        <td>marieemmasemevo@example.com</td>
+                        <th scope="row"><?php echo $idperso?></th>
+                        <td><?php echo $prenom?></td>
+                        <td><?php echo $nom?></td>
+                        <td><?php echo $login?></td>
+                        <td><?php echo $mdp?></td>
+                        <td><?php echo $role?></td>
+                        <td><?php echo $email?></td>
                         <td>
-                            <a href="#">
-                                <i class="fas fa-edit text-primary"></i>
-                            </a> /
-                            <a href="#">
+                            <button class="btn btn-sm float-end text-white
+                            fw-bold" data-bs-toggle="modal" data-bs-target="#updateModal">
+                                <i class="fas fa-edit text-primary"
+                                   data-personnel-id="<?php echo $idperso;?>"
+                                   data-personnel-prenom="<?php echo $prenom;?>"
+                                   data-personnel-nom="<?php echo $nom;?>"
+                                   data-personnel-login="<?php echo $login;?>"
+                                   data-personnel-role="<?php echo $role;?>"
+                                   data-personnel-email="<?php echo $email;?>"
+                                ></i>
+                            </button> /
+                            <a href="listePersonnel.php?idperso=<?php echo $idperso ?>">
                                 <i class="fas fa-trash-alt text-danger"></i>
                             </a>
                         </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Paul</td>
-                        <td>Ndour</td>
-                        <td>pnlog</td>
-                        <td>passer123</td>
-                        <td>Gerant</td>
-                        <td>paulndour@example.com</td>
-                        <td>
-                            <a href="#">
-                                <i class="fas fa-edit text-primary"></i>
-                            </a> /
-                            <a href="#">
-                                <i class="fas fa-trash-alt text-danger"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Fabrice Jordan Christian</td>
-                        <td>Ramos</td>
-                        <td>fjcrlog</td>
-                        <td>comprendrien</td>
-                        <td>Directeur</td>
-                        <td>fabricejordan@example.com</td>
-                        <td>
-                            <a href="#">
-                                <i class="fas fa-edit text-primary"></i>
-                            </a> /
-                            <a href="#">
-                                <i class="fas fa-trash-alt text-danger"></i>
-                            </a>
-                        </td>
-                    </tr>
                     </tr>
                     </tbody>
+                    <?php } ?>
                 </table>
             </div>
             </p>
@@ -312,12 +603,42 @@
 
     </div>
     <!-- Personnel list table section ends -->
+<div class="bg-primary">
+    <script>
+        var editIcons = document.querySelectorAll(".fa-edit");
+        editIcons.forEach(function(icon) {
+            icon.addEventListener("click", function() {
+                var personnelId = icon.getAttribute("data-personnel-id");
+                var personnelprenom = icon.getAttribute("data-personnel-prenom");
+                var personnelnom = icon.getAttribute("data-personnel-nom");
+                var personnellogin = icon.getAttribute("data-personnel-login");
+                var personnelrole = icon.getAttribute("data-personnel-role");
+                var personnelemail = icon.getAttribute("data-personnel-email");
+                var modal = document.getElementById("updateModal");
+                var personnelIdInput = document.getElementById("personnel-id-input");
+                var personnelprenomInput = document.getElementById("personnel-prenom-input");
+                var personnelnomInput = document.getElementById("personnel-nom-input");
+                var personnelloginInput = document.getElementById("personnel-login-input");
+                var personnelroleInput = document.getElementById("personnel-role-input");
+                var personnelemailInput = document.getElementById("personnel-email-input");
+                personnelIdInput.value = personnelId;
+                personnelprenomInput.value = personnelprenom;
+                personnelnomInput.value = personnelnom;
+                personnelloginInput.value = personnellogin;
+                personnelroleInput.value = personnelrole;
+                personnelemailInput.value = personnelemail;
+                modal.style.display = "block";
+            });
+        });
+    </script>
 
 
 
 </div>
-<!-- Main Section Ends -->
 
 
 </body>
+</div>
+<!-- Main Section Ends -->
+
 
