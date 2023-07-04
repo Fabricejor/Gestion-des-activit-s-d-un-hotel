@@ -90,8 +90,6 @@ include('config.php');
                     $_SESSION['nom'] = $nom;
                     $_SESSION['sexe'] = $sexe;
                     $_SESSION['couriel'] = $couriel;
-                    $_SESSION['mdp'] = $mdp;
-                    $_SESSION['couriel'] = $couriel;
                     $_SESSION['login'] = $login;
                     $_SESSION['mdp'] = $mdp;
                     $_SESSION['tel'] = $tel;
